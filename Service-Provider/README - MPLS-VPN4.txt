@@ -34,7 +34,13 @@ the 'force' parameter.
 
 ---- Section 5 - Customer Routing ----
 
-1.) Implement OSPF for the customer routes and configure it on the provider edge and customer edge routers. Use a different area for
-the customer routes, as opposed to the provider area router. The provider routers will not know of this OSPF process. Use a different area # than the ISP. 
+1.) Implement OSPF for the customer routers and configure it on the provider edge and customer edge routers. Use a different area for
+the customer routes instead of the provider area router. The provider routers will not know of this OSPF process. Use a different area # than the ISP. 
 
-2.) 
+---- Section 6 - BGP ----
+
+1.) Enable iBGP on the provider edge routers. This will create a full mesh.
+
+2.) Redistribute OSPF subnets for the AS under global BGP configuration on service provider routers.
+
+3.) Redistribute BGP subnets for the AS under global OSPF configuration on service provider routers.
