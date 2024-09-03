@@ -1,0 +1,111 @@
+SP2#sh run
+Building configuration...
+
+Current configuration : 1209 bytes
+!
+version 12.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname SP2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no aaa new-model
+memory-size iomem 5
+no ip icmp rate-limit unreachable
+!
+!
+ip cef
+no ip domain lookup
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+archive
+ log config
+  hidekeys
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.0.2.1 255.255.255.255
+!
+interface FastEthernet0/0
+ description to SP1-PE
+ ip address 10.0.12.2 255.255.255.0
+ duplex auto
+ speed auto
+ mpls ip
+!
+interface FastEthernet0/1
+ description to SP3-PE
+ ip address 10.0.23.2 255.255.255.0
+ duplex auto
+ speed auto
+ mpls ip
+!
+!
+router ospf 1
+ log-adjacency-changes
+ network 10.0.2.0 0.0.0.255 area 0
+ network 10.0.12.0 0.0.0.255 area 0
+ network 10.0.23.0 0.0.0.255 area 0
+!
+no ip http server
+no ip http secure-server
+ip forward-protocol nd
+!
+!
+!
+no cdp log mismatch duplex
+!
+!
+mpls ldp router-id Loopback0 force
+!
+!
+control-plane
+!
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login
+!
+!
+end
